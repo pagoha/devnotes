@@ -1,0 +1,21 @@
+name: DevNotes CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate repository structure
+        run: |
+          test -f README.md
+          test -d notes
+          test -d snippets
+          test -d scripts
+          echo 'Repository structure validated'
