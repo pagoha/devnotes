@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout code
       - uses: actions/checkout@v4
 
+      # 2️⃣ Validate repository structure
       - name: Validate repository structure
         run: |
           test -f README.md
@@ -19,3 +21,17 @@ jobs:
           test -d snippets
           test -d scripts
           echo 'Repository structure validated'
+
+      # 3️⃣ Markdown linting
+      - name: Lint Markdown files
+        run: |
+          npm install -g markdownlint-cli
+          markdownlint "notes/**/*.md" "snippets/**/*.md" || true
+        shell: bash
+
+      # 4️⃣ Spell check
+      - name: Spell check notes
+        run: |
+          npm install -g cspell
+          cspell "notes/**/*.md" "snippets/**/*.md" || true
+        shell: bash
