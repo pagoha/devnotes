@@ -1,3 +1,5 @@
+![CI](https://github.com/pagoha/devnotes/actions/workflows/ci.yml/badge.svg)
+
 # DevNotes 📘
 
 DevNotes is a curated developer knowledge base for storing notes, cheat
