@@ -1,0 +1,24 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": [
+    "node_modules/**",
+    ".git/**",
+    ".github/**"
+  ],
+  "words": [
+    "DevNotes",
+    "GitHub",
+    "VSCode",
+    "PowerShell",
+    "CI",
+    "Markdown",
+    "docker",
+    "Docker",
+    "linting",
+    "workflow",
+    "yaml",
+    "repo",
+    "repos"
+  ]
+}

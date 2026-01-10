@@ -29,9 +29,12 @@ jobs:
           markdownlint "notes/**/*.md" "snippets/**/*.md" || true
         shell: bash
 
-      # 4️⃣ Spell check
-      - name: Spell check notes
-        run: |
-          npm install -g cspell
-          cspell "notes/**/*.md" "snippets/**/*.md" || true
-        shell: bash
+      # 4️⃣ Spell check (cspell)
+      - name: Spell check Markdown files
+        uses: streetsidesoftware/cspell-action@v5
+        with:
+          files: |
+            notes/**/*.md
+            snippets/**/*.md
+          config: cspell.json
+          strict: false
