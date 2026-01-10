@@ -1,15 +1,17 @@
 # VSCode Setup Guide
 
 ## 🎯 Purpose
+
 This guide explains how to configure Visual Studio Code for working with the **DevNotes** repository. It covers recommended extensions, workspace settings, Markdown linting, spell checking, and productivity workflows that keep contributions consistent with the repo’s automation and CI checks.
 
 ---
 
 ## 🧩 Recommended Extensions
+
 These extensions align with DevNotes’ focus on Markdown, documentation quality, and lightweight scripting.
 
 | Extension | Purpose |
-|----------|---------|
+| ---------- | --------- |
 | **Markdown All in One** | Enhances Markdown editing, shortcuts, TOC generation |
 | **markdownlint** | Enforces the repo’s `markdownlint.json` rules |
 | **Code Spell Checker (cSpell)** | Matches the repo’s spell‑check workflow |
@@ -37,6 +39,7 @@ To prompt contributors to install these automatically, create a `.vscode/extensi
 ---
 
 ## ⚙️ Workspace Settings
+
 These settings help maintain consistency across notes and scripts.
 
 Create `.vscode/settings.json`:
@@ -63,6 +66,7 @@ Create `.vscode/settings.json`:
 ---
 
 ## 🧪 Linting & Spell Check
+
 Your CI pipeline validates:
 
 - Markdown formatting (`markdownlint`)
@@ -79,6 +83,7 @@ This ensures your notes pass the same checks before pushing.
 ---
 
 ## 📝 Creating New Notes
+
 Use the provided script to generate a properly structured note:
 
 ```powershell
@@ -90,6 +95,7 @@ This enforces consistent naming and front‑matter across the repo.
 ---
 
 ## 📦 VS Code Tasks (Optional but Helpful)
+
 You can add tasks to streamline common actions.
 
 Create `.vscode/tasks.json`:
@@ -123,6 +129,7 @@ This allows:
 ---
 
 ## 🐙 Git Workflow Tips
+
 DevNotes is documentation‑first, so a lightweight Git workflow works best:
 
 - Use small, focused commits
@@ -135,10 +142,11 @@ VS Code’s Git UI is ideal for this style of repo.
 ---
 
 ## 🧭 Repo Navigation
+
 Key directories:
 
 | Folder | Purpose |
-|--------|---------|
+| -------- | --------- |
 | `notes/` | Main Markdown notes |
 | `snippets/` | Reusable code examples |
 | `scripts/` | PowerShell automation |
@@ -153,6 +161,7 @@ Start in:
 ---
 
 ## 🚀 Optional Enhancements
+
 If you want to elevate the contributor experience further:
 
 - Add a **Dev Container** for consistent tooling
