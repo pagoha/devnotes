@@ -1,14 +1,34 @@
 {
+  // === Spell Checking ===
+  "cSpell.enabled": true,
+  "cSpell.configFile": "./cspell.json",
+  "cSpell.strict": true,
   "cSpell.words": [
     "davidanson",
     "eamodio",
     "esbenp",
-    "yzhang"
+    "yzhang",
+    "DevNotes",
+    "GitHub",
+    "VSCode",
+    "PowerShell",
+    "CI",
+    "Markdown",
+    "docker",
+    "Docker",
+    "linting",
+    "workflow",
+    "yaml",
+    "repo",
+    "repos"
   ],
-  "cSpell.enabled": true,
-  "cSpell.configFile": "./cspell.json",
-  "cSpell.strict": true,
+
+  // === Markdownlint ===
   "markdownlint.config": "${workspaceFolder}/.markdownlint.json",
   "markdownlint.fixOnSave": true,
-  "markdownlint.files": ["**/*.md"]
+  // Explicitly lint root files and all files inside notes/
+  "markdownlint.files": ["*.md", "notes/*.md"],
+
+  // === Editor Settings ===
+  "workbench.editor.enablePreview": false
 }
