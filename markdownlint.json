@@ -1,25 +1,25 @@
 {
   "default": true,
 
-  "MD001": true,                      // Header levels should only increment by one
-  "MD003": { "style": "atx" },        // Use # for headers
-  "MD004": { "style": "dash" },       // Use dashes for unordered lists
-  "MD007": { "indent": 2 },           // List indentation of 2 spaces
-  "MD009": true,                       // No trailing spaces
-  "MD010": true,                       // No hard tabs
-  "MD012": true,                       // No consecutive blank lines
-  "MD013": { "line_length": 100 },    // Line length limit, adjust to taste
-  "MD018": true,                       // No space after # in headers
-  "MD022": true,                       // Headers should be surrounded by blank lines
-  "MD025": true,                       // Multiple top-level headers (warn)
-  "MD026": true,                       // Trailing punctuation in headers
-  "MD029": { "style": "ordered" },    // Ordered list style: 1. 2. 3.
-  "MD030": true,                       // Spaces after list markers
-  "MD031": true,                       // Fenced code blocks surrounded by blank lines
-  "MD032": true,                       // No blank lines inside lists
-  "MD033": false,                      // Allow inline HTML
-  "MD034": true,                       // Bare URLs should be enclosed
-  "MD036": true,                       // No multiple spaces after # in headers
-  "MD040": true,                       // Fenced code block language required
-  "MD041": true                        // First line should be top-level header
+  "MD001": true,
+  "MD003": { "style": "atx" },
+  "MD004": { "style": "dash" },
+  "MD007": { "indent": 2 },
+  "MD009": true,
+  "MD010": true,
+  "MD012": true,
+  "MD013": { "line_length": 100 },
+  "MD018": true,
+  "MD022": true,
+  "MD025": true,
+  "MD026": true,
+  "MD029": { "style": "ordered" },
+  "MD030": true,
+  "MD031": true,
+  "MD032": true,
+  "MD033": false,
+  "MD034": true,
+  "MD036": true,
+  "MD040": true,
+  "MD041": true
 }

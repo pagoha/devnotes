@@ -1,0 +1,43 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# VS Code settings
+.vscode/*          # ignore local VS Code workspace settings
+!.vscode/settings.json  # optionally keep your project-specific VS Code settings if you want
+*.code-workspace
+
+# Logs
+logs/
+*.log
+*.tsbuildinfo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# Markdownlint / Spell checker caches
+.markdownlint-cache/
+.cspell.cache
+
+# Build artifacts (if you ever add them)
+dist/
+build/
+out/
+
+# Environment files (if any)
+.env
+.env.local
+.env.*.local
+
+# Optional: IDEs other than VS Code
+.idea/
+*.iml

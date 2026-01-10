@@ -12,4 +12,3 @@ Some **bold text** with a missspelled wordd inside to check spell-checking in fo
 [An inline link with a misspelled word](https://example.com/mispelledlink)
 
 > A blockquote that is extemely excessively long and should be flagged by Markdownlint if the line length rule is enabled.
-
