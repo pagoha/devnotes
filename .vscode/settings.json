@@ -4,5 +4,11 @@
     "eamodio",
     "esbenp",
     "yzhang"
-  ]
+  ],
+  "cSpell.enabled": true,
+  "cSpell.configFile": "./cspell.json",
+  "cSpell.strict": true,
+  "markdownlint.config": "${workspaceFolder}/.markdownlint.json",
+  "markdownlint.fixOnSave": true,
+  "markdownlint.files": ["**/*.md"]
 }
