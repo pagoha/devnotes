@@ -272,7 +272,7 @@ kubectl create secret generic app-secret \
 ## Comparing Docker Compose vs Kubernetes
 
 | Feature | Docker Compose | Kubernetes |
-|------|---------------|------------|
+| ------ | --------------- | ------------ |
 | Complexity | Low | High |
 | Learning curve | Easy | Steep |
 | Scaling | Manual | Built-in |
