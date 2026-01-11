@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/pagoha/devnotes/actions/workflows/ci.yml/badge.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-DevNotes is a curated developer knowledge base for storing notes, cheat sheets, and reusable code snippets.  
+DevNotes is a curated developer knowledge base for storing notes, cheat sheets, and reusable code snippets.
 It is designed as a lightweight, GitHub-friendly repository that demonstrates clean structure, beginner-friendly documentation, and CI integration.
 
 ------------------------------------------------------------------------
@@ -124,6 +124,7 @@ This project serves as:
 - Beginner-friendly step-by-step guides for Docker and Kubernetes
 - A VS Code workflow demonstration
 - A portfolio-ready example repository
+- A reference to provide a simple, structured introduction to development for beginners, including my teenage son
 
 ------------------------------------------------------------------------
 
