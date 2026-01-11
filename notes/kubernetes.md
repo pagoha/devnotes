@@ -289,7 +289,7 @@ kubectl create secret generic app-secret \
 - Writing huge YAML files without understanding
 - Forgetting Docker fundamentals
 - Not reading error messages
-- Over-engineering local projects
+- Overengineering local projects
 
 ---
 
