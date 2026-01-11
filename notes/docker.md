@@ -34,6 +34,7 @@ Containers run the same way on every machine, which removes the classic problem 
 - Easy deployment to servers and cloud platforms
 
 Docker is commonly used for:
+
 - Web applications
 - APIs and microservices
 - Databases in development
@@ -44,6 +45,7 @@ Docker is commonly used for:
 ## Core Docker Concepts (Plain English)
 
 ### Image
+
 An **image** is a blueprint.
 
 - Read-only
@@ -51,6 +53,7 @@ An **image** is a blueprint.
 - Used to create containers
 
 ### Container
+
 A **container** is a running instance of an image.
 
 - Lightweight
@@ -58,7 +61,9 @@ A **container** is a running instance of an image.
 - Can be started, stopped, and deleted
 
 ### Dockerfile
+
 A **Dockerfile** is a text file that tells Docker:
+
 - What base image to use
 - What files to copy
 - What command to run
@@ -71,10 +76,11 @@ A **Dockerfile** is a text file that tells Docker:
 
 Install Docker Desktop for your operating system:
 
-- **Windows & macOS (official download):**  
-  https://www.docker.com/products/docker-desktop/
+- **Windows & macOS (official download):**
+  <https://www.docker.com/products/docker-desktop/>
 
 Docker Desktop includes:
+
 - Docker Engine
 - Docker CLI
 - Docker Compose
@@ -90,11 +96,10 @@ You should see Docker version output.
 
 ---
 
-
 ## Essential Docker Commands
 
 | Action | Command |
-|------|-------|
+| ------ | ------- |
 | Check running containers | `docker ps` |
 | Check all containers | `docker ps -a` |
 | List images | `docker images` |
@@ -111,6 +116,7 @@ You should see Docker version output.
 This example walks you through **containerizing a simple web server**.
 
 By the end, you will:
+
 - Build a Docker image
 - Run a container
 - Access it from your browser
@@ -122,7 +128,8 @@ By the end, you will:
 Make sure you have the following installed:
 
 ### 1️⃣ Docker Desktop
-- Official download: https://www.docker.com/products/docker-desktop/
+
+- Official download: <https://www.docker.com/products/docker-desktop/>
 - Required to run Docker on Windows and macOS
 
 Verify:
@@ -134,7 +141,8 @@ docker --version
 ---
 
 ### 2️⃣ Node.js (LTS)
-- Official site: https://nodejs.org/
+
+- Official site: <https://nodejs.org/>
 - Recommended: **LTS version**
 
 Verify:
@@ -150,14 +158,14 @@ npm --version
 
 While not required, a code editor makes things easier:
 
-- **VS Code:** https://code.visualstudio.com/
+- **VS Code:** <https://code.visualstudio.com/>
 
 Recommended VS Code extensions:
+
 - Docker (by Microsoft)
 - ESLint (optional)
 
 ---
-
 
 ## Step 1: Create the Project Folder
 
@@ -208,7 +216,7 @@ CMD ["node", "server.js"]
 ### What Each Line Does
 
 | Line | Meaning |
-|----|-------|
+| ---- | ------- |
 | `FROM` | Base image with Node installed |
 | `WORKDIR` | Sets working directory inside container |
 | `COPY` | Copies app files into container |
@@ -274,10 +282,12 @@ docker stop <container_id>
 ## Common Beginner Issues
 
 ### Port Not Working
+
 - Make sure ports match: `-p 3000:3000`
 - App must listen on the same port
 
 ### Build Errors
+
 - Check file names
 - Ensure `Dockerfile` has no extension
 
@@ -300,6 +310,7 @@ docker system prune -a
 ## When to Use Docker
 
 Use Docker when:
+
 - Working in teams
 - Deploying apps
 - Running databases locally
@@ -311,27 +322,199 @@ Use Docker when:
 
 Once comfortable with this example, explore:
 
-- **Docker Compose** (multi-container apps):  
-  https://docs.docker.com/compose/
+- **Docker Compose** (multi-container apps):
+  <https://docs.docker.com/compose/>
 
-- **Docker Hub** (image registry):  
-  https://hub.docker.com/
+- **Docker Hub** (image registry):
+  <https://hub.docker.com/>
 
-- **Dockerfile best practices:**  
-  https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+- **Dockerfile best practices:**
+  <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/>
 
-- **Docker networking basics:**  
-  https://docs.docker.com/network/
+- **Docker networking basics:**
+  <https://docs.docker.com/network/>
 
 ---
 
+## Docker Compose — Real‑World Example (Beginner Friendly)
+
+Docker Compose is used when your application needs **more than one container**, such as:
+
+- A web app + a database
+- An API + a cache (Redis)
+- Multiple services working together
+
+This example shows a **Node.js app + PostgreSQL database** running together.
+
+---
+
+## What You Will Build
+
+- A Node.js app container
+- A PostgreSQL database container
+- Both started with **one command**
+
+---
+
+## Why Docker Compose?
+
+Without Compose, you would need to:
+
+- Start containers manually
+- Manage networking yourself
+- Remember long `docker run` commands
+
+Docker Compose solves this with a single file: `docker-compose.yml`.
+
+---
+
+## Step 1: Project Structure
+
+Your folder should look like this:
+
+```
+docker-compose-demo/
+├── Dockerfile
+├── docker-compose.yml
+├── server.js
+```
+
+---
+
+## Step 2: Simple App (server.js)
+
+```js
+const http = require("http");
+
+const PORT = 3000;
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Hello from Docker Compose!");
+});
+
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+```
+
+---
+
+## Step 3: Dockerfile
+
+```
+FROM node:20-alpine
+WORKDIR /app
+COPY server.js .
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+---
+
+## Step 4: docker-compose.yml
+
+```yaml
+version: "3.9"
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: example
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: exampledb
+    ports:
+      - "5432:5432"
+```
+
+### What This Means
+
+| Item | Purpose |
+| ---- | ------- |
+| `services` | Defines containers |
+| `app` | Your Node.js app |
+| `db` | PostgreSQL database |
+| `depends_on` | Ensures DB starts first |
+
+---
+
+## Step 5: Start Everything
+
+From the project folder:
+
+```bash
+docker compose up --build
+```
+
+Docker will:
+
+- Build the app image
+- Start the database
+- Connect both containers automatically
+
+---
+
+## Step 6: Test It
+
+Open your browser:
+
+```
+http://localhost:3000
+```
+
+You should see:
+
+```
+Hello from Docker Compose!
+```
+
+---
+
+## Step 7: Stop Everything
+
+```bash
+docker compose down
+```
+
+This stops and removes the containers but keeps your images.
+
+---
+
+## Explain Like I’m 5 (Compose Edition)
+
+- One file tells Docker about **all containers**
+- One command starts **everything together**
+- Containers can talk to each other automatically
+
+---
+
+## When to Use Docker Compose
+
+Use Compose when:
+
+- Your app needs a database
+- You have multiple services
+- You want easy local development
+
+---
 
 ## Final Notes
 
-This file is intentionally beginner-focused.
+This Compose example is intentionally simple.
 
-You can expand this document in the future with:
-- Docker Compose examples
-- Production patterns
-- Security hardening
-- CI/CD integrations
+You can expand it later by adding:
+
+- Volumes for database persistence
+- Environment files (`.env`)
+- Production overrides
+- Health checks
+
+Docker Compose is the **bridge between beginner Docker and real-world projects**.
