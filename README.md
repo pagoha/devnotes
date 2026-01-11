@@ -141,3 +141,5 @@ This project serves as:
 ## 📄 License
 
 MIT License
+
+Made with ❤️ by [pagoha]
