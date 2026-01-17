@@ -1,224 +1,197 @@
-# Visual Studio Code on Windows (2026): Install Types, Context Menu Integration, and Troubleshooting
+# Visual Studio Code on Windows (2026)
 
-**Author:** Paul Agoha  
+**Install Types, Context Menu Integration, and Troubleshooting**
+*Author: Paul Agoha*
 
-> This guide explains the *2026* reality of installing VS Code on Windows 11, why **“Open with Code”** sometimes goes missing, how Windows 11’s **modern vs classic** context menus work, and step‑by‑step fixes that **preserve your extensions and settings**.
+**Last updated:** January 2026
 
----
+This guide explains installing VS Code on Windows 11 in 2026, why “Open with Code” often only appears after “Show more options” in the modern context menu, how modern vs classic menus behave, and reliable fixes — all without losing your extensions or settings.
 
-## Table of contents
-- [Visual Studio Code on Windows (2026): Install Types, Context Menu Integration, and Troubleshooting](#visual-studio-code-on-windows-2026-install-types-context-menu-integration-and-troubleshooting)
-  - [Table of contents](#table-of-contents)
-  - [Quick answers](#quick-answers)
-  - [Install types in 2026 (User vs System)](#install-types-in-2026-user-vs-system)
-  - [Where VS Code stores your data (safe during reinstall)](#where-vs-code-stores-your-data-safe-during-reinstall)
-  - [Windows 11 context menus: modern vs classic](#windows-11-context-menus-modern-vs-classic)
-  - [Symptoms \& root causes](#symptoms--root-causes)
-  - [Fix paths (choose one)](#fix-paths-choose-one)
-    - [Path A — Keep modern menu; install **System** version](#path-a--keep-modern-menu-install-system-version)
-    - [Path B — Prefer classic menu globally (one‑click)](#path-b--prefer-classic-menu-globally-oneclick)
-    - [Path C — Manual registration (advanced)](#path-c--manual-registration-advanced)
-  - [Post‑install verification checklist](#postinstall-verification-checklist)
-  - [Cleanup after migrating from User → System](#cleanup-after-migrating-from-user--system)
-  - [FAQ](#faq)
-  - [Appendix: Commands \& Registry snippets](#appendix-commands--registry-snippets)
-    - [Download (official)](#download-official)
-    - [Show classic menu by default (toggle)](#show-classic-menu-by-default-toggle)
-    - [Verify settings \& extensions locations](#verify-settings--extensions-locations)
-    - [References](#references)
+> **Important 2026 note:** Recent versions (notably v1.103+) introduced temporary bugs where even checked context menu options during install failed to register properly. These were widely reported in August 2025 and mostly fixed via repair/reinstall in later patches. The core advice below still applies fully.
 
----
+## Table of Contents
 
-## Quick answers
-- **Where to download the System installer?** Use the official download page and pick **Windows → System Installer (x64)**.  citeturn28search7turn28search10
-- **Will I lose my extensions/settings if I uninstall?** No. They live under `%APPDATA%\Code\User` and `%USERPROFILE%\.vscode\extensions`, not in the app folder.  citeturn28search19turn28search22
-- **Why is “Open with Code” only under _Show more options_?** Because Windows 11’s **modern** menu surfaces curated/signed handlers; legacy verbs show in the classic fallback.  citeturn28search25turn28search26
-- **Can I force “Open with Code” to the modern top‑level?** Not reliably with registry alone; it requires a packaged/signed Explorer command handler (app vendor change).  citeturn28search13turn28search18
+- [Quick Answers](#quick-answers)
+- [Install Types (User vs System Installer)](#install-types-user-vs-system-installer)
+- [Where Your Data Lives (Safe During Reinstall)](#where-your-data-lives-safe-during-reinstall)
+- [Windows 11 Context Menus: Modern vs Classic](#windows-11-context-menus-modern-vs-classic)
+- [Common Symptoms & Causes](#common-symptoms--causes)
+- [Fix Options (Pick One)](#fix-options-pick-one)
+  - [Path A: Switch to System Installer (Recommended)](#path-a-switch-to-system-installer-recommended)
+  - [Path B: Force Classic Menu Globally (Easiest)](#path-b-force-classic-menu-globally-easiest)
+  - [Path C: Manual Registry Fix (Advanced)](#path-c-manual-registry-fix-advanced-when-needed)
+- [Post-Install Verification](#post-install-verification)
+- [Cleanup After User → System Migration](#cleanup-after-user--system-migration)
+- [FAQ](#faq)
+- [Appendix: Useful Commands & Snippets](#appendix-useful-commands--snippets)
 
----
+## Quick Answers
 
-## Install types in 2026 (User vs System)
+- **Best download for full shell integration?**
+  Official site → <https://code.visualstudio.com/download> → **Windows** → **System Installer** (x64)
 
-VS Code offers two Windows installers:
+- **Lose extensions/settings on uninstall?**
+  No — they live in:
+  `%APPDATA%\Code\User` (settings, keybindings, snippets, profiles)
+  `%USERPROFILE%\.vscode\extensions` (extensions)
 
-| Type | Path | Elevation | Who gets it | Modern menu eligibility |
-|---|---|---|---|---|
-| **User Setup** | `%LOCALAPPDATA%\Programs\Microsoft VS Code` | No | Current user | *Legacy verbs only* → appears under **Show more options** |
-| **System Installer** | `C:\Program Files\Microsoft VS Code` | Yes | All users | Eligible for modern menu (subject to Windows surfacing rules) |
+- **Why only under “Show more options”?**
+  VS Code registers legacy shell verbs. Windows 11's modern (curated) context menu prefers packaged/signed handlers. Even the System installer often lands in the classic submenu.
 
-**Why it matters:** the **System** installer registers machine‑scope shell integration that the Windows 11 modern menu can discover; the **User** installer registers per‑user legacy verbs that appear in the **classic** menu.  citeturn28search7turn28search10
+- **Force top-level modern menu via registry?**
+  Not reliably — requires native IExplorerCommand support that VS Code stable doesn't fully implement yet.
 
-> Official docs: *“VS Code provides both Windows user and system level setups … User setup installs under Local AppData; System setup installs under Program Files (all users).”*  citeturn28search7
+## Install Types (User vs System Installer)
 
----
+| Feature                  | User Installer                                      | System Installer                                      |
+|--------------------------|-----------------------------------------------------|-------------------------------------------------------|
+| **Default?**             | Yes (recommended by Microsoft for most users)       | No                                                    |
+| **Location**             | `%LOCALAPPDATA%\Programs\Microsoft VS Code`         | `C:\Program Files\Microsoft VS Code`                  |
+| **Admin required?**      | No                                                  | Yes                                                   |
+| **Scope**                | Current user only                                   | All users                                             |
+| **Updates**              | Seamless background (no elevation)                  | Requires elevation                                    |
+| **Context menu**         | Legacy verbs → usually "Show more options"          | Machine-wide → better chance, but often still legacy  |
+| **Recommended for**      | Single-user, smooth updates                         | Multi-user machines, max integration                  |
 
-## Where VS Code stores your data (safe during reinstall)
-- **User settings, keybindings, snippets, profiles:** `%APPDATA%\Code\User`  
-- **Extensions:** `%USERPROFILE%\.vscode\extensions`  
-These locations are **not deleted** by a normal uninstall/reinstall.  citeturn28search19turn28search22
+During install, check these boxes (very important):
 
-**Optional backup before uninstall:**
+- [ ] Add “Open with Code” to Explorer file context menu
+- [ ] Add “Open with Code” to Explorer directory context menu
+- [ ] Add to PATH (recommended)
+
+## Where Your Data Lives (Safe During Reinstall)
+
+These folders survive normal uninstall/reinstall:
+
+- Settings/keybindings/snippets/profiles: `%APPDATA%\Code\User`
+- Extensions: `%USERPROFILE%\.vscode\extensions`
+
+Quick backup (optional):
+
 ```powershell
-code --list-extensions > $env:USERPROFILE\vscode-extensions.txt
+code --list-extensions > "$env:USERPROFILE\vscode-extensions.txt"
 ```
 
----
+## Windows 11 Context Menus: Modern vs Classic
 
-## Windows 11 context menus: modern vs classic
-Windows 11 ships a **modern (XAML)** context menu and keeps the **classic** menu behind **Show more options**.
+- **Modern** (default): Slim, curated list — only strongly signed/packaged commands appear here by default.
+- **Classic** (legacy): Full old-school menu — shown after “Show more options” or Shift + right-click.
 
-- **Modern menu:** surfaces a *curated* set of commands from packaged apps or signed Explorer command handlers.  
-- **Classic menu:** shows legacy shell verbs (e.g., `…\Directory\shell`), accessed via **Show more options** or `Shift+F10`.  citeturn28search25turn28search26
+VS Code (even System install) typically uses legacy registration → ends up in classic.
 
-Developers targeting the modern menu implement/register **`IExplorerCommand`**; discovery differs from legacy verb registration.  citeturn28search13
+## Common Symptoms & Causes
 
----
+| Symptom | Likely Cause |
+| --------- | -------------- |
+| Missing entirely | Option unchecked / Store version / broken registration / v1.103 bug |
+| Only in “Show more options” | Expected behavior for legacy verbs (most common in 2026) |
+| Shows on folder background but not files | Incomplete Folder/Directory registration |
+| Disappeared after update | Known bug in v1.103 (Aug 2025) — repair/reinstall usually resolves |
 
-## Symptoms & root causes
-- “Open with Code” missing entirely → installer options unchecked, broken registration, or Store build.  citeturn28search2
-- Present only under **Show more options** → expected for legacy verbs and most non‑packaged Win32 apps.  citeturn28search26
-- Appears in left pane but not right pane → FolderView caching/verb filtering; fix by explicit `Folder` registration (see Path C).  *(Behavior consistent with Win11’s view‑specific menus).*  citeturn28search26
+## Fix Options (Pick One)
 
----
+### Path A: Switch to System Installer (Recommended)
 
-## Fix paths (choose one)
+1. Uninstall VS Code (Settings > Apps > Installed apps > Uninstall).
+2. Download **System Installer (x64)** from <https://code.visualstudio.com/download>.
+3. Run as admin → check all context menu + PATH options.
+4. Complete install → restart PC (or Explorer: `taskkill /IM explorer.exe /F && start explorer.exe`).
 
-### Path A — Keep modern menu; install **System** version
-1) **Uninstall** current VS Code (Settings → Apps → Installed apps → Visual Studio Code → Uninstall).  
-2) **Install** from the official page → **Windows → System Installer (x64)**. During setup, check:  
-   - **Add “Open with Code” to Windows Explorer**  
-   - Add to PATH  
-3) **Reboot** to reload Explorer’s machine‑scope handlers.  citeturn28search7turn28search10
+Gives the cleanest official integration (still often requires "Show more options").
 
-**Result:** “Open with Code” appears consistently (modern menu may still choose to place it under classic in some builds; that’s by design of Windows 11’s curated surfacing).  citeturn28search25
+### Path B: Force Classic Menu Globally (Easiest)
 
----
-
-### Path B — Prefer classic menu globally (one‑click)
-If you want one‑click access to **all** legacy verbs:
+Run in Command Prompt (no admin needed):
 
 ```cmd
-reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
+reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /ve /t REG_SZ /d "" /f
 ```
-Restart Explorer or reboot. To revert, delete that key.  citeturn28search26turn28search33
 
-**Effect:** Windows shows the **classic** context menu by default; “Open with Code” returns to first‑level right‑click (Win10‑style).  citeturn28search26
+Restart Explorer (or reboot).
 
----
+→ Full Windows 10-style context menu becomes default — “Open with Code” appears immediately.
 
-### Path C — Manual registration (advanced)
-If folder *background* shows “Open with Code” but folder *items* don’t, add explicit `Folder`/`Directory` verbs (System install assumed):
+**Revert:**
+
+```cmd
+reg delete "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /f
+```
+
+### Path C: Manual Registry Fix (Advanced when needed)
+
+Run PowerShell **as Administrator**:
 
 ```powershell
-# Run PowerShell as Administrator
-$exe = "C:\\Program Files\\Microsoft VS Code\\Code.exe"
+$exe = "C:\Program Files\Microsoft VS Code\Code.exe"
 
-# Folder objects (right pane items)
-New-Item "HKLM:\\Software\\Classes\\Folder\\shell\\VSCode" -Force | Out-Null
-Set-ItemProperty "HKLM:\\Software\\Classes\\Folder\\shell\\VSCode" -Name "MUIVerb" -Value "Open with Code"
-Set-ItemProperty "HKLM:\\Software\\Classes\\Folder\\shell\\VSCode" -Name "Icon" -Value $exe
-New-Item "HKLM:\\Software\\Classes\\Folder\\shell\\VSCode\\command" -Force | Out-Null
-Set-ItemProperty "HKLM:\\Software\\Classes\\Folder\\shell\\VSCode\\command" -Name "(Default)" -Value "`"$exe`" `"%1`""
+# For files/folders
+New-Item -Path "HKLM:\Software\Classes\*\shell\Open with Code" -Force
+Set-ItemProperty -Path "HKLM:\Software\Classes\*\shell\Open with Code" -Name "MUIVerb" -Value "Open with Code"
+Set-ItemProperty -Path "HKLM:\Software\Classes\*\shell\Open with Code" -Name "Icon" -Value $exe
 
-# Directory objects (optional; complements Folder)
-New-Item "HKLM:\\Software\\Classes\\Directory\\shell\\VSCode" -Force | Out-Null
-Set-ItemProperty "HKLM:\\Software\\Classes\\Directory\\shell\\VSCode" -Name "MUIVerb" -Value "Open with Code"
-Set-ItemProperty "HKLM:\\Software\\Classes\\Directory\\shell\\VSCode" -Name "Icon" -Value $exe
-New-Item "HKLM:\\Software\\Classes\\Directory\\shell\\VSCode\\command" -Force | Out-Null
-Set-ItemProperty "HKLM:\\Software\\Classes\\Directory\\shell\\VSCode\\command" -Name "(Default)" -Value "`"$exe`" `"%1`""
+New-Item -Path "HKLM:\Software\Classes\*\shell\Open with Code\command" -Force
+Set-ItemProperty -Path "HKLM:\Software\Classes\*\shell\Open with Code\command" -Name "(Default)" -Value "`"$exe`" `"%1`""
+
+# For directories (folders themselves)
+New-Item -Path "HKLM:\Software\Classes\Directory\shell\Open with Code" -Force
+Set-ItemProperty -Path "HKLM:\Software\Classes\Directory\shell\Open with Code" -Name "MUIVerb" -Value "Open with Code"
+Set-ItemProperty -Path "HKLM:\Software\Classes\Directory\shell\Open with Code" -Name "Icon" -Value $exe
+
+New-Item -Path "HKLM:\Software\Classes\Directory\shell\Open with Code\command" -Force
+Set-ItemProperty -Path "HKLM:\Software\Classes\Directory\shell\Open with Code\command" -Name "(Default)" -Value "`"$exe`" `"%1`""
 ```
-Restart Explorer. *(This targets legacy/classic surfacing; modern menu promotion remains curated by Windows.)*  citeturn28search2
 
-> Tip: If you previously had a **User Setup**, remove leftover HKCU verbs to avoid conflicts.
+Restart Explorer afterwards.
+
+**Clean old User install leftovers (if switching):**
 
 ```powershell
-Remove-Item "HKCU:\\Software\\Classes\\Directory\\shell\\VSCode" -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item "HKCU:\\Software\\Classes\\Folder\\shell\\VSCode" -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item "HKCU:\\Software\\Classes\\Directory\\Background\\shell\\VSCode" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "HKCU:\Software\Classes\*\shell\Open with Code" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "HKCU:\Software\Classes\Directory\shell\Open with Code" -Recurse -Force -ErrorAction SilentlyContinue
 ```
 
----
+## Post-Install Verification
 
-## Post‑install verification checklist
-- **VS Code scope:**
-  ```powershell
-  where code
-  # Expect: C:\\Program Files\\Microsoft VS Code\\bin\\code.cmd
-  ```
-- **Modern vs classic:** Right‑click a folder → if not on first menu, choose **Show more options**; it should be there.  citeturn28search26
-- **Settings/Extensions present:** confirm theme, extensions, keybindings intact. Locations: `%APPDATA%\Code\User`, `%USERPROFILE%\.vscode\extensions`.  citeturn28search19turn28search22
+- Run in terminal: `where code` → should point to `C:\Program Files\Microsoft VS Code\bin\code.cmd`
+- Right-click files/folders → check both modern and classic menus
+- Open VS Code → confirm extensions, themes, settings are intact
 
----
+## Cleanup After User → System Migration
 
-## Cleanup after migrating from User → System
-If you see duplicate/odd entries, remove the stale **HKCU** command left by the User installer:
+Check for stale entries:
 
 ```powershell
-Get-ChildItem HKCU:\Software\Classes\Directory\shell | Where-Object { $_.Name -match "Code|VSCode" }
-# If found, remove it:
-Remove-Item "HKCU:\\Software\\Classes\\Directory\\shell\\VSCode" -Recurse -Force
+Get-ChildItem HKCU:\Software\Classes\*\shell | Where-Object { $_.Name -match "Code" }
 ```
-Then restart Explorer:
-```powershell
-taskkill /IM explorer.exe /F
-start explorer.exe
-```
-*(Prevents conflicts between per‑user and machine‑scope verbs.)*
 
----
+Remove found items (example):
+
+```powershell
+Remove-Item "HKCU:\Software\Classes\Directory\shell\Open with Code" -Recurse -Force
+```
+
+Restart Explorer.
 
 ## FAQ
-**Q: Will a simple reinstall (without uninstall) fix modern‑menu surfacing?**  
-**A:** No. Running the **User** installer again does an in‑place update with the same scope. To gain machine‑scope handlers, uninstall **User** setup and install the **System** setup.  citeturn28search7
 
-**Q: Can VS Code be promoted to the top‑level modern menu via registry only?**  
-**A:** No. The modern menu is curated and favors packaged apps or signed ExplorerCommand handlers. Legacy verbs remain in **Show more options** by design.  citeturn28search13turn28search25
+**Q: Does reinstall fix modern menu placement?**
+A: Usually no — stick with System install + Path B for reliable access.
 
-**Q: Is there a supported way to always see the classic menu?**  
-**A:** Yes. Add the `{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}` per‑user registry key (see Path B) to make the classic menu default; remove the key to revert.  citeturn28search26
+**Q: Store or winget version?**
+A: Avoid for full shell integration — sandboxed, often misses context menus.
 
-**Q: What about Store or winget installs?**  
-**A:** Store packages are sandboxed and often lack classic verb registrations. Prefer the official **System Installer** for full shell integration on dev machines.  citeturn28search12
+**Q: Recent bugs in 2025/2026?**
+A: Yes — v1.103 (Aug 2025) broke context menu registration for many. Repair via installer, reinstall, or downgrade temporarily.
 
----
+## Appendix: Useful Commands & Snippets
 
-## Appendix: Commands & Registry snippets
+**Force classic menu (Path B):**
 
-### Download (official)
-- **https://code.visualstudio.com/download** → Windows → **System Installer (x64)**.  citeturn28search7
-
-### Show classic menu by default (toggle)
 ```cmd
-:: Enable classic
-reg.exe add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
-
-:: Disable classic (restore modern)
-reg.exe delete "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /f
+reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /ve /t REG_SZ /d "" /f
 ```
-citeturn28search26
 
-### Verify settings & extensions locations
-- `%APPDATA%\Code\User`  
-- `%USERPROFILE%\.vscode\extensions`  citeturn28search19turn28search22
+**Official resources:**
 
----
-
-### References
-- **VS Code on Windows (official docs)** – install paths, User vs System setup  
-  https://code.visualstudio.com/docs/setup/windows  citeturn28search7
-- **VS Code docs (repo, updated for 1.108)**  
-  https://github.com/Microsoft/vscode-docs/blob/main/docs/setup/windows.md  citeturn28search10
-- **Settings & configuration storage**  
-  https://code.visualstudio.com/docs/configure/settings  citeturn28search19
-- **Unsaved/backup & user data locations (community references)**  
-  https://superuser.com/questions/1225368/visual-studio-code-unsaved-files-location  citeturn28search22
-- **Windows 11 modern vs classic context menu**  
-  https://www.howtogeek.com/759449/how-to-get-full-context-menus-in-windows-11s-file-explorer/  citeturn28search26
-- **Restore legacy (classic) menu toggle**  
-  https://learn.microsoft.com/en-gb/answers/questions/2287432/(article)-restore-old-right-click-context-menu-in  citeturn28search25
-- **Explorer command handlers (IExplorerCommand)**  
-  https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexplorercommand  citeturn28search13
-- **Add/restore “Open with Code” via installer or registry (practical)**  
-  https://www.winhelponline.com/blog/restore-open-with-vs-code-context-menu/  citeturn28search2
-
----
+- <https://code.visualstudio.com/docs/setup/windows>
+- <https://github.com/microsoft/vscode/issues> (search "context menu" for latest bugs)

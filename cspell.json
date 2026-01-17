@@ -7,18 +7,24 @@
     ".github/**"
   ],
   "words": [
-    "DevNotes",
-    "GitHub",
-    "VSCode",
-    "PowerShell",
     "CI",
-    "Markdown",
+    "CLSID",
+    "DevNotes",
     "docker",
     "Docker",
+    "GitHub",
+    "HKCU",
+    "HKLM",
     "linting",
-    "workflow",
-    "yaml",
+    "LOCALAPPDATA",
+    "Markdown",
+    "PowerShell",
     "repo",
-    "repos"
+    "repos",
+    "taskkill",
+    "USERPROFILE",
+    "VSCode",
+    "workflow",
+    "yaml"
   ]
 }
