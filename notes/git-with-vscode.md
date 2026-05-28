@@ -9,10 +9,10 @@
 
 Before starting, ensure you have:
 
-- **Git installed locally**: <https://git-scm.com/downloads>
-- **Visual Studio Code installed**: <https://code.visualstudio.com/>
-- A **GitHub account**: <https://github.com/>
-- **Access to your own GitHub repository**
+* **Git installed locally**: [https://git-scm.com/downloads](https://git-scm.com/downloads)
+* **Visual Studio Code installed**: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+* A **GitHub account**: [https://github.com/](https://github.com/)
+* **Access to your own GitHub repository**
 
 > If you’re new to Git, read `notes/git-basics.md` first.
 
@@ -21,9 +21,11 @@ Before starting, ensure you have:
 ## Setting Up VS Code for Git
 
 1. **Open VS Code** and ensure the **Git extension** is installed (usually built-in).
+
 2. Confirm Git is recognized by VS Code:
-   - Open terminal in VS Code (`Ctrl + ``)
-   - Run:
+
+   * Open terminal in VS Code (`Ctrl + ``)
+   * Run:
 
 ```bash
 git --version
@@ -31,7 +33,7 @@ git --version
 
 You should see the installed Git version.
 
-1. Configure Git with your user information:
+3. Configure Git with your user information:
 
 ```bash
 git config --global user.name "Your Name"
@@ -50,36 +52,39 @@ cd your-repo
 code .
 ```
 
-1. Or open an **existing local repository**:
-   - In VS Code: `File → Open Folder` → select your project folder
-   - VS Code automatically detects the Git repository
+2. Or open an **existing local repository**:
+
+   * In VS Code: `File → Open Folder` → select your project folder
+   * VS Code automatically detects the Git repository
 
 ---
 
 ## Source Control Panel Overview
 
-- Click the **Source Control icon** (or `Ctrl + Shift + G`)
-- You’ll see:
-  - **Changes** → modified files not staged
-  - **Staged Changes** → files ready for commit
-  - **Commit message box** → add a descriptive message
+* Click the **Source Control icon** (or `Ctrl + Shift + G`)
+* You’ll see:
+
+  * **Changes** → modified files not staged
+  * **Staged Changes** → files ready for commit
+  * **Commit message box** → add a descriptive message
 
 ### Example Workflow
 
 1. Modify a file (e.g., `notes/docker.md`)
+
 2. Stage changes: click the `+` next to the file in Source Control, or:
 
 ```bash
 git add notes/docker.md
 ```
 
-1. Commit changes:
+3. Commit changes:
 
 ```bash
 git commit -m "docs: update Docker guide with .env example"
 ```
 
-1. Push to remote:
+4. Push to remote:
 
 ```bash
 git push origin main
@@ -90,20 +95,21 @@ git push origin main
 ## Branching in VS Code
 
 1. Create a new branch:
-   - Click the branch indicator in the bottom-left corner → **Create new branch**
-   - Name it `feature/kubernetes-guide`
+
+   * Click the branch indicator in the bottom-left corner → **Create new branch**
+   * Name it `feature/kubernetes-guide`
 
 ```bash
-git checkout -b feature/kubernetes-guide
+git switch -c feature/kubernetes-guide
 ```
 
-1. Switch branches:
+2. Switch branches:
 
 ```bash
-git checkout main
+git switch main
 ```
 
-1. Merge changes:
+3. Merge changes:
 
 ```bash
 git merge feature/kubernetes-guide
@@ -113,11 +119,52 @@ git merge feature/kubernetes-guide
 
 ---
 
+## Modern Git Commands (`switch` and `restore`)
+
+Older Git tutorials commonly use `git checkout` for multiple tasks.
+
+Modern Git versions separate commands more clearly:
+
+| Command       | Purpose                      |
+| ------------- | ---------------------------- |
+| `git switch`  | Switching branches           |
+| `git restore` | Restoring local file changes |
+
+### Examples
+
+Switch branches:
+
+```bash
+git switch main
+```
+
+Create and switch to a new branch:
+
+```bash
+git switch -c feature/my-feature
+```
+
+Restore local file changes:
+
+```bash
+git restore notes/docker.md
+```
+
+Unstage a file:
+
+```bash
+git restore --staged notes/docker.md
+```
+
+> `git checkout` still works and is commonly seen in older tutorials, but `switch` and `restore` are clearer for beginners and modern workflows.
+
+---
+
 ## Git Diff & History
 
-- **Diff view**: click a changed file to see line-by-line differences
-- **GitLens extension** (optional, by Eric Amodio): <https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens>
-- View commit history in terminal:
+* **Diff view**: click a changed file to see line-by-line differences
+* **GitLens extension** (optional, by Eric Amodio): [https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+* View commit history in terminal:
 
 ```bash
 git log --oneline --graph --all
@@ -127,27 +174,65 @@ git log --oneline --graph --all
 
 ## Stashing Changes
 
-- If you need to switch branches but have uncommitted changes:
+If you need to switch branches but have uncommitted changes:
 
 ```bash
 git stash
-git checkout main
+git switch main
 git stash pop
 ```
 
-- In VS Code, stash options are also available via the Source Control menu
+In VS Code, stash options are also available via the Source Control menu.
 
 ---
 
 ## Pulling & Syncing
 
-- Always **pull changes before pushing** to avoid conflicts:
+Always **pull changes before pushing** to avoid conflicts:
 
 ```bash
 git pull origin main
 ```
 
-- VS Code shows a **Sync Changes button** to pull + push in one click
+VS Code also shows a **Sync Changes button** to pull + push in one click.
+
+---
+
+## Cleaning Up After a Pull Request Merge
+
+After your pull request (PR) is merged into `main` on GitHub:
+
+1. Switch back to `main` locally:
+
+```bash
+git switch main
+```
+
+2. Pull the latest merged changes:
+
+```bash
+git pull origin main
+```
+
+3. Delete your local feature branch:
+
+```bash
+git branch -d feature/my-feature
+```
+
+### View Local Branches
+
+```bash
+git branch
+```
+
+### View Local + Remote Branches
+
+```bash
+git branch -a
+```
+
+> The `*` symbol indicates your currently active branch.
 
 ---
 
@@ -155,55 +240,74 @@ git pull origin main
 
 Refer to `notes/vscode.md` for recommended extensions and workspace settings, including:
 
-- Markdown All in One
-- markdownlint
-- Code Spell Checker (cSpell)
-- GitLens
-- PowerShell, YAML, Prettier
+* Markdown All in One
+* markdownlint
+* Code Spell Checker (cSpell)
+* GitLens
+* PowerShell
+* YAML
+* Prettier
 
-This ensures consistency with DevNotes’ automation and CI workflows.
+This helps maintain consistency with DevNotes automation and CI workflows.
 
 ---
 
 ## Best Practices
 
-- Commit frequently with descriptive messages
-- Use branches for features or experiments
-- Pull before pushing
-- Resolve conflicts visually in VS Code
-- Leverage `.gitignore` to avoid committing unnecessary files
+* Commit frequently with descriptive messages
+* Use feature branches instead of working directly on `main`
+* Pull before pushing
+* Resolve conflicts visually in VS Code
+* Leverage `.gitignore` to avoid committing unnecessary files
+* Keep branches focused on a single feature or change
+* Delete merged feature branches to keep your repository organized
 
 ---
 
-## Example: Updating Your Repository
+## Example: Typical Feature Branch Workflow
 
-1. Add a new file `notes/git-with-vscode.md`
-2. Stage it in VS Code or terminal:
-
-```bash
-git add notes/git-with-vscode.md
-```
-
-1. Commit:
+1. Start from the latest `main` branch:
 
 ```bash
-git commit -m "docs: add Git + VS Code workflow guide"
+git switch main
+git pull origin main
 ```
 
-1. Push:
+2. Create a new feature branch:
 
 ```bash
-git push origin main
+git switch -c feature/my-update
 ```
 
-> Readers now have a complete workflow from creating a branch, editing files, committing, and pushing changes, all using VS Code with Git integrated.
+3. Make changes and commit them:
+
+```bash
+git add .
+git commit -m "docs: update Git workflow guide"
+```
+
+4. Push branch to GitHub:
+
+```bash
+git push -u origin feature/my-update
+```
+
+5. Open a Pull Request (PR) on GitHub
+
+6. After the PR is merged:
+
+```bash
+git switch main
+git pull origin main
+git branch -d feature/my-update
+```
 
 ---
 
 ## Recommended Learning Order
 
 1. Git Basics (`git-basics.md`)
-2. Git + VS Code workflow (`git-with-vscode.md`)
+2. Git + VS Code Workflow (`git-with-vscode.md`)
 3. DevNotes repository practical examples
 4. Advanced Git workflows (pull requests, rebasing, branching strategies)
 
@@ -211,7 +315,7 @@ git push origin main
 
 ## Links & Resources
 
-- [Git Documentation](https://git-scm.com/doc)
-- [VS Code Git Guide](https://code.visualstudio.com/docs/editor/versioncontrol)
-- [GitHub Docs](https://docs.github.com/en)
-- [GitLens VS Code Extension](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+* [Git Documentation](https://git-scm.com/doc)
+* [VS Code Git Guide](https://code.visualstudio.com/docs/editor/versioncontrol)
+* [GitHub Docs](https://docs.github.com/en)
+* [GitLens VS Code Extension](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
