@@ -8,9 +8,10 @@
   "MD009": true,
   "MD010": true,
   "MD012": true,
-  "MD013": { "line_length": 100 },
+  "MD013": false,
   "MD018": true,
   "MD022": true,
+  "MD024": { "siblings_only": true },
   "MD025": true,
   "MD026": true,
   "MD029": { "style": "ordered" },
@@ -19,7 +20,8 @@
   "MD032": true,
   "MD033": false,
   "MD034": true,
-  "MD036": true,
-  "MD040": true,
-  "MD041": true
+  "MD036": false,
+  "MD040": false,
+  "MD041": true,
+  "MD060": false
 }

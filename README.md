@@ -1,4 +1,4 @@
-# DevNotes 📘
+# DevNotes
 
 ![CI](https://github.com/pagoha/devnotes/actions/workflows/ci.yml/badge.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
@@ -7,41 +7,64 @@ It is designed as a lightweight, GitHub-friendly repository that demonstrates cl
 
 ------------------------------------------------------------------------
 
-## 📑 Table of Contents
+## Table of Contents
 
-- [Features](#-features)
-- [Project Structure](#-project-structure)
-- [Example Notes](#-example-notes)
-- [Scripts](#-scripts)
-- [Continuous Integration](#-continuous-integration)
-- [How to Contribute](#-how-to-contribute)
-- [Why This Project Exists](#-why-this-project-exists)
-- [License](#-license)
-
-------------------------------------------------------------------------
-
-## 🚀 Features
-
-- 📚 Organized developer notes (Git, Git + VS Code, Docker, Kubernetes, GitHub)
-- 🧩 Reusable code snippets
-- 🛠 PowerShell helper scripts for consistent note creation
-- ✅ Continuous Integration with GitHub Actions
-- 📂 Clean, scalable project structure
-- ✨ Beginner-friendly step-by-step guides for Git, VS Code, Docker, and Kubernetes
+- [Features](#features)
+- [Learning Path](#learning-path)
+- [Project Structure](#project-structure)
+- [Example Notes](#example-notes)
+- [Scripts](#scripts)
+- [Continuous Integration](#continuous-integration)
+- [How to Contribute](#how-to-contribute)
+- [Why This Project Exists](#why-this-project-exists)
+- [Requirements / Prerequisites](#requirements--prerequisites)
+- [License](#license)
 
 ------------------------------------------------------------------------
 
-## 📁 Project Structure
+## Features
+
+- Organized developer notes for Git, VS Code, Docker, Kubernetes, and AI tooling
+- Reusable code snippets
+- PowerShell helper scripts for consistent note creation
+- Continuous Integration with GitHub Actions
+- Clean, scalable project structure
+- Beginner-friendly step-by-step guides
+
+------------------------------------------------------------------------
+
+## Learning Path
+
+Start here if you are using DevNotes as a guided learning repo:
+
+1. [Git Basics](notes/git-basics.md)
+2. [Git + VS Code Workflow](notes/git-with-vscode.md)
+3. [VS Code Setup Guide](notes/vscode.md)
+4. [Docker Beginner Guide](notes/docker.md)
+5. [Kubernetes Beginner Guide](notes/kubernetes.md)
+6. [AI & LLM Cheatsheet](notes/ai-cheatsheet.md)
+7. [Prompt Engineering Guide](notes/prompt-engineering.md)
+8. [Copilot Chat in VS Code](notes/vscode-copilot-chat.md)
+
+Use [starter-template.md](notes/starter-template.md) when creating new notes.
+
+------------------------------------------------------------------------
+
+## Project Structure
 
 ```
 devnotes/
 ├── .github/          # GitHub Actions workflows
 ├── .vscode/          # VS Code workspace settings
 ├── notes/            # Developer notes (Markdown)
+│   ├── ai-cheatsheet.md
 │   ├── docker.md
-│   ├── kubernetes.md
 │   ├── git-basics.md
 │   ├── git-with-vscode.md
+│   ├── kubernetes.md
+│   ├── prompt-engineering.md
+│   ├── VSCode-Windows-2026-Install-and-Context-Menu-Guide.md
+│   ├── vscode-copilot-chat.md
 │   └── vscode.md
 ├── scripts/          # PowerShell helper scripts
 ├── snippets/         # Reusable code snippets
@@ -53,17 +76,20 @@ devnotes/
 
 ------------------------------------------------------------------------
 
-## 🧠 Example Notes
+## Example Notes
 
 - Git basics and workflows (`git-basics.md`)
 - Git + VS Code workflow (`git-with-vscode.md`)
 - VS Code setup, extensions, and workspace settings (`vscode.md`)
 - Docker usage and Compose with `.env` examples (`docker.md`)
 - Kubernetes beginner guide (`kubernetes.md`)
+- AI and LLM concepts (`ai-cheatsheet.md`)
+- Prompt engineering patterns (`prompt-engineering.md`)
+- Copilot Chat workflows in VS Code (`vscode-copilot-chat.md`)
 
 ------------------------------------------------------------------------
 
-## ⚙️ Scripts
+## Scripts
 
 PowerShell helper script for creating new notes:
 
@@ -73,17 +99,31 @@ PowerShell helper script for creating new notes:
 .\scripts\new_note.ps1 <topic>
 ```
 
-This command will create a new Markdown file in the `notes` directory with consistent naming and front-matter.
+This command creates a new Markdown file in the `notes` directory with
+consistent naming and front matter.
+
+### Validate notes
+
+```powershell
+.\scripts\validate_notes.ps1
+```
+
+You can also run the npm validation commands directly:
+
+```bash
+npm run lint:all
+```
 
 ------------------------------------------------------------------------
 
-## ✅ Continuous Integration
+## Continuous Integration
 
-This repository uses **GitHub Actions** to automatically validate repository structure, Markdown linting, and spell checking on every push and pull request.
+This repository uses **GitHub Actions** to automatically validate repository
+structure, Markdown linting, and spell checking on every push and pull request.
 
 ------------------------------------------------------------------------
 
-## 📝 How to Contribute
+## How to Contribute
 
 1. **Fork the repository** and clone it locally:
 
@@ -101,7 +141,7 @@ git checkout -b feature/your-feature-name
 2. **Run validation** to match CI checks:
 
 ```powershell
-./scripts/validate.ps1
+./scripts/validate_notes.ps1
 ```
 
 1. **Stage, commit, and push** your changes:
@@ -116,7 +156,7 @@ git push origin feature/your-feature-name
 
 ------------------------------------------------------------------------
 
-## 📌 Why This Project Exists
+## Why This Project Exists
 
 This project serves as:
 
@@ -128,7 +168,7 @@ This project serves as:
 
 ------------------------------------------------------------------------
 
-## ⚙️ Requirements / Prerequisites
+## Requirements / Prerequisites
 
 - Git installed locally: <https://git-scm.com/downloads>
 - Visual Studio Code installed: <https://code.visualstudio.com/>
@@ -138,7 +178,7 @@ This project serves as:
 
 ------------------------------------------------------------------------
 
-## 📄 License
+## License
 
 MIT License
 

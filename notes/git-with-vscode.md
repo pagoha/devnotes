@@ -9,10 +9,10 @@
 
 Before starting, ensure you have:
 
-* **Git installed locally**: [https://git-scm.com/downloads](https://git-scm.com/downloads)
-* **Visual Studio Code installed**: [https://code.visualstudio.com/](https://code.visualstudio.com/)
-* A **GitHub account**: [https://github.com/](https://github.com/)
-* **Access to your own GitHub repository**
+- **Git installed locally**: [https://git-scm.com/downloads](https://git-scm.com/downloads)
+- **Visual Studio Code installed**: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+- A **GitHub account**: [https://github.com/](https://github.com/)
+- **Access to your own GitHub repository**
 
 > If you’re new to Git, read `notes/git-basics.md` first.
 
@@ -24,8 +24,8 @@ Before starting, ensure you have:
 
 2. Confirm Git is recognized by VS Code:
 
-   * Open terminal in VS Code (`Ctrl + ``)
-   * Run:
+   - Open terminal in VS Code (`Ctrl + ``)
+   - Run:
 
 ```bash
 git --version
@@ -33,7 +33,7 @@ git --version
 
 You should see the installed Git version.
 
-3. Configure Git with your user information:
+1. Configure Git with your user information:
 
 ```bash
 git config --global user.name "Your Name"
@@ -52,21 +52,21 @@ cd your-repo
 code .
 ```
 
-2. Or open an **existing local repository**:
+1. Or open an **existing local repository**:
 
-   * In VS Code: `File → Open Folder` → select your project folder
-   * VS Code automatically detects the Git repository
+   - In VS Code: `File → Open Folder` → select your project folder
+   - VS Code automatically detects the Git repository
 
 ---
 
 ## Source Control Panel Overview
 
-* Click the **Source Control icon** (or `Ctrl + Shift + G`)
-* You’ll see:
+- Click the **Source Control icon** (or `Ctrl + Shift + G`)
+- You’ll see:
 
-  * **Changes** → modified files not staged
-  * **Staged Changes** → files ready for commit
-  * **Commit message box** → add a descriptive message
+  - **Changes** → modified files not staged
+  - **Staged Changes** → files ready for commit
+  - **Commit message box** → add a descriptive message
 
 ### Example Workflow
 
@@ -78,13 +78,13 @@ code .
 git add notes/docker.md
 ```
 
-3. Commit changes:
+1. Commit changes:
 
 ```bash
 git commit -m "docs: update Docker guide with .env example"
 ```
 
-4. Push to remote:
+1. Push to remote:
 
 ```bash
 git push origin main
@@ -96,20 +96,20 @@ git push origin main
 
 1. Create a new branch:
 
-   * Click the branch indicator in the bottom-left corner → **Create new branch**
-   * Name it `feature/kubernetes-guide`
+   - Click the branch indicator in the bottom-left corner → **Create new branch**
+   - Name it `feature/kubernetes-guide`
 
 ```bash
 git switch -c feature/kubernetes-guide
 ```
 
-2. Switch branches:
+1. Switch branches:
 
 ```bash
 git switch main
 ```
 
-3. Merge changes:
+1. Merge changes:
 
 ```bash
 git merge feature/kubernetes-guide
@@ -162,9 +162,9 @@ git restore --staged notes/docker.md
 
 ## Git Diff & History
 
-* **Diff view**: click a changed file to see line-by-line differences
-* **GitLens extension** (optional, by Eric Amodio): [https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
-* View commit history in terminal:
+- **Diff view**: click a changed file to see line-by-line differences
+- **GitLens extension** (optional, by Eric Amodio): [https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+- View commit history in terminal:
 
 ```bash
 git log --oneline --graph --all
@@ -208,13 +208,13 @@ After your pull request (PR) is merged into `main` on GitHub:
 git switch main
 ```
 
-2. Pull the latest merged changes:
+1. Pull the latest merged changes:
 
 ```bash
 git pull origin main
 ```
 
-3. Delete your local feature branch:
+1. Delete your local feature branch:
 
 ```bash
 git branch -d feature/my-feature
@@ -240,13 +240,13 @@ git branch -a
 
 Refer to `notes/vscode.md` for recommended extensions and workspace settings, including:
 
-* Markdown All in One
-* markdownlint
-* Code Spell Checker (cSpell)
-* GitLens
-* PowerShell
-* YAML
-* Prettier
+- Markdown All in One
+- markdownlint
+- Code Spell Checker (cSpell)
+- GitLens
+- PowerShell
+- YAML
+- Prettier
 
 This helps maintain consistency with DevNotes automation and CI workflows.
 
@@ -254,13 +254,13 @@ This helps maintain consistency with DevNotes automation and CI workflows.
 
 ## Best Practices
 
-* Commit frequently with descriptive messages
-* Use feature branches instead of working directly on `main`
-* Pull before pushing
-* Resolve conflicts visually in VS Code
-* Leverage `.gitignore` to avoid committing unnecessary files
-* Keep branches focused on a single feature or change
-* Delete merged feature branches to keep your repository organized
+- Commit frequently with descriptive messages
+- Use feature branches instead of working directly on `main`
+- Pull before pushing
+- Resolve conflicts visually in VS Code
+- Leverage `.gitignore` to avoid committing unnecessary files
+- Keep branches focused on a single feature or change
+- Delete merged feature branches to keep your repository organized
 
 ---
 
@@ -273,28 +273,28 @@ git switch main
 git pull origin main
 ```
 
-2. Create a new feature branch:
+1. Create a new feature branch:
 
 ```bash
 git switch -c feature/my-update
 ```
 
-3. Make changes and commit them:
+1. Make changes and commit them:
 
 ```bash
 git add .
 git commit -m "docs: update Git workflow guide"
 ```
 
-4. Push branch to GitHub:
+1. Push branch to GitHub:
 
 ```bash
 git push -u origin feature/my-update
 ```
 
-5. Open a Pull Request (PR) on GitHub
+1. Open a Pull Request (PR) on GitHub
 
-6. After the PR is merged:
+2. After the PR is merged:
 
 ```bash
 git switch main
@@ -315,7 +315,7 @@ git branch -d feature/my-update
 
 ## Links & Resources
 
-* [Git Documentation](https://git-scm.com/doc)
-* [VS Code Git Guide](https://code.visualstudio.com/docs/editor/versioncontrol)
-* [GitHub Docs](https://docs.github.com/en)
-* [GitLens VS Code Extension](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+- [Git Documentation](https://git-scm.com/doc)
+- [VS Code Git Guide](https://code.visualstudio.com/docs/editor/versioncontrol)
+- [GitHub Docs](https://docs.github.com/en)
+- [GitLens VS Code Extension](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)

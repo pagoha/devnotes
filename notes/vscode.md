@@ -1,4 +1,4 @@
-# VSCode Setup Guide
+# VS Code Setup Guide
 
 ## 🎯 Purpose
 

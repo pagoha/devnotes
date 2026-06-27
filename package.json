@@ -4,8 +4,8 @@
     "markdownlint-cli": "^0.47.0"
   },
   "scripts": {
-    "lint:md": "markdownlint notes/*.md --config ./.markdownlint.json",
-    "lint:spell": "cspell notes/*.md --config ./cspell.json",
+    "lint:md": "markdownlint \"notes/**/*.md\" \"snippets/**/*.md\" --config ./markdownlint.json",
+    "lint:spell": "cspell \"notes/**/*.md\" \"snippets/**/*.md\" --config ./cspell.json",
     "lint:all": "npm run lint:md && npm run lint:spell"
   }
 }

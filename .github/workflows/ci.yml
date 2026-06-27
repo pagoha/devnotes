@@ -23,18 +23,9 @@ jobs:
           echo 'Repository structure validated'
 
       # 3️⃣ Markdown linting
-      - name: Lint Markdown files
-        run: |
-          npm install -g markdownlint-cli
-          markdownlint "notes/**/*.md" "snippets/**/*.md" || true
-        shell: bash
+      - name: Install Node dependencies
+        run: npm ci
 
-      # 4️⃣ Spell check (cspell)
-      - name: Spell check Markdown files
-        uses: streetsidesoftware/cspell-action@v5
-        with:
-          files: |
-            notes/**/*.md
-            snippets/**/*.md
-          config: cspell.json
-          strict: false
+      # 4️⃣ Markdown linting and spell check
+      - name: Validate Markdown and spelling
+        run: npm run lint:all

@@ -9,27 +9,51 @@
 # Ensure Node.js is installed for markdownlint-cli and cspell
 # You can install globally once: npm install -g markdownlint-cli cspell
 
-Write-Host "🔹 Validating repository structure..."
-if (-Not (Test-Path README.md)) { Write-Host "❌ README.md missing" }
-if (-Not (Test-Path notes)) { Write-Host "❌ notes/ folder missing" }
-if (-Not (Test-Path snippets)) { Write-Host "❌ snippets/ folder missing" }
-if (-Not (Test-Path scripts)) { Write-Host "❌ scripts/ folder missing" }
-Write-Host "✅ Repository structure check complete.`n"
+Write-Host "Validating repository structure..."
+$missingRequiredPath = $false
 
-Write-Host "🔹 Linting Markdown files..."
-try {
-    markdownlint "notes/**/*.md" "snippets/**/*.md"
-    Write-Host "✅ Markdown linting complete.`n"
-} catch {
-    Write-Host "⚠️ Markdown linting found issues.`n"
+if (-Not (Test-Path README.md)) {
+    Write-Host "Missing README.md"
+    $missingRequiredPath = $true
 }
 
-Write-Host "🔹 Running spell check..."
-try {
-    cspell "notes/**/*.md" "snippets/**/*.md"
-    Write-Host "✅ Spell check complete.`n"
-} catch {
-    Write-Host "⚠️ Spell check found issues.`n"
+if (-Not (Test-Path notes)) {
+    Write-Host "Missing notes/ folder"
+    $missingRequiredPath = $true
 }
 
-Write-Host "🎉 Local validation finished!"
+if (-Not (Test-Path snippets)) {
+    Write-Host "Missing snippets/ folder"
+    $missingRequiredPath = $true
+}
+
+if (-Not (Test-Path scripts)) {
+    Write-Host "Missing scripts/ folder"
+    $missingRequiredPath = $true
+}
+
+if ($missingRequiredPath) {
+    exit 1
+}
+
+Write-Host "Repository structure check complete.`n"
+
+Write-Host "Linting Markdown files..."
+try {
+    npm run lint:md
+    Write-Host "Markdown linting complete.`n"
+} catch {
+    Write-Host "Markdown linting found issues.`n"
+    exit 1
+}
+
+Write-Host "Running spell check..."
+try {
+    npm run lint:spell
+    Write-Host "Spell check complete.`n"
+} catch {
+    Write-Host "Spell check found issues.`n"
+    exit 1
+}
+
+Write-Host "Local validation finished!"

@@ -34,6 +34,7 @@ Containers run the same way on every machine, which removes the classic problem 
 - Easy deployment to servers and cloud platforms
 
 Docker is commonly used for:
+
 - Web applications
 - APIs and microservices
 - Databases in development
@@ -44,6 +45,7 @@ Docker is commonly used for:
 ## Core Docker Concepts (Plain English)
 
 ### Image
+
 An **image** is a blueprint.
 
 - Read-only
@@ -51,6 +53,7 @@ An **image** is a blueprint.
 - Used to create containers
 
 ### Container
+
 A **container** is a running instance of an image.
 
 - Lightweight
@@ -58,7 +61,9 @@ A **container** is a running instance of an image.
 - Can be started, stopped, and deleted
 
 ### Dockerfile
+
 A **Dockerfile** is a text file that tells Docker:
+
 - What base image to use
 - What files to copy
 - What command to run
@@ -72,9 +77,10 @@ A **Dockerfile** is a text file that tells Docker:
 Install Docker Desktop for your operating system:
 
 - **Windows & macOS (official download):**  
-  https://www.docker.com/products/docker-desktop/
+  <https://www.docker.com/products/docker-desktop/>
 
 Docker Desktop includes:
+
 - Docker Engine
 - Docker CLI
 - Docker Compose
@@ -89,7 +95,6 @@ docker --version
 You should see Docker version output.
 
 ---
-
 
 ## Essential Docker Commands
 
@@ -111,6 +116,7 @@ You should see Docker version output.
 This example walks you through **containerizing a simple web server**.
 
 By the end, you will:
+
 - Build a Docker image
 - Run a container
 - Access it from your browser
@@ -122,7 +128,8 @@ By the end, you will:
 Make sure you have the following installed:
 
 ### 1️⃣ Docker Desktop
-- Official download: https://www.docker.com/products/docker-desktop/
+
+- Official download: <https://www.docker.com/products/docker-desktop/>
 - Required to run Docker on Windows and macOS
 
 Verify:
@@ -134,7 +141,8 @@ docker --version
 ---
 
 ### 2️⃣ Node.js (LTS)
-- Official site: https://nodejs.org/
+
+- Official site: <https://nodejs.org/>
 - Recommended: **LTS version**
 
 Verify:
@@ -150,14 +158,14 @@ npm --version
 
 While not required, a code editor makes things easier:
 
-- **VS Code:** https://code.visualstudio.com/
+- **VS Code:** <https://code.visualstudio.com/>
 
 Recommended VS Code extensions:
+
 - Docker (by Microsoft)
 - ESLint (optional)
 
 ---
-
 
 ## Step 1: Create the Project Folder
 
@@ -274,10 +282,12 @@ docker stop <container_id>
 ## Common Beginner Issues
 
 ### Port Not Working
+
 - Make sure ports match: `-p 3000:3000`
 - App must listen on the same port
 
 ### Build Errors
+
 - Check file names
 - Ensure `Dockerfile` has no extension
 
@@ -300,6 +310,7 @@ docker system prune -a
 ## When to Use Docker
 
 Use Docker when:
+
 - Working in teams
 - Deploying apps
 - Running databases locally
@@ -312,19 +323,18 @@ Use Docker when:
 Once comfortable with this example, explore:
 
 - **Docker Compose** (multi-container apps):  
-  https://docs.docker.com/compose/
+  <https://docs.docker.com/compose/>
 
 - **Docker Hub** (image registry):  
-  https://hub.docker.com/
+  <https://hub.docker.com/>
 
 - **Dockerfile best practices:**  
-  https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+  <https://docs.docker.com/develop/develop-images/dockerfile_best-practices/>
 
 - **Docker networking basics:**  
-  https://docs.docker.com/network/
+  <https://docs.docker.com/network/>
 
 ---
-
 
 ## Docker Compose — Real‑World Example (Beginner Friendly)
 
@@ -349,6 +359,7 @@ This example shows a **Node.js app + PostgreSQL database** running together.
 ## Why Docker Compose?
 
 Without Compose, you would need to:
+
 - Start containers manually
 - Manage networking yourself
 - Remember long `docker run` commands
@@ -404,8 +415,6 @@ CMD ["node", "server.js"]
 ## Step 4: docker-compose.yml
 
 ```yaml
-version: "3.9"
-
 services:
   app:
     build: .
@@ -429,6 +438,10 @@ services:
 
 volumes:
   db-data:
+```
+
+> Modern Docker Compose uses the Compose Specification directly. Older examples
+> may include a top-level `version` field, but new files usually omit it.
 
 ---
 
@@ -452,7 +465,7 @@ POSTGRES_DB=exampledb
 
 Docker Compose reads this file at runtime and injects the values into containers.
 
-> ⚠️ **Important:** `.env` files often contain secrets and should not be committed to Git.
+> Important: `.env` files often contain secrets and should not be committed to Git.
 
 ---
 
@@ -480,17 +493,6 @@ cp .env.example .env
 
 Then edit `.env` with real values.
 
----
- (Configuration)
-
-Create a file named `.env` in the same directory as `docker-compose.yml`:
-
-```env
-POSTGRES_USER=example
-POSTGRES_PASSWORD=example
-POSTGRES_DB=exampledb
-```
-
 ### Why Use a `.env` File?
 
 - Keeps secrets out of `docker-compose.yml`
@@ -513,6 +515,7 @@ volumes:
 ```
 
 What this does:
+
 - Stores database data outside the container
 - Keeps data even after `docker compose down`
 
