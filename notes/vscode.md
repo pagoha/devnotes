@@ -75,7 +75,7 @@ Your CI pipeline validates:
 To match CI locally, run:
 
 ```powershell
-./scripts/validate.ps1
+./scripts/validate_notes.ps1
 ```
 
 This ensures your notes pass the same checks before pushing.
@@ -107,7 +107,7 @@ Create `.vscode/tasks.json`:
     {
       "label": "Validate Notes",
       "type": "shell",
-      "command": "./scripts/validate.ps1",
+      "command": "./scripts/validate_notes.ps1",
       "problemMatcher": []
     },
     {

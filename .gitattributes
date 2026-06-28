@@ -1,0 +1,8 @@
+# Normalize line endings
+* text=auto eol=lf
+
+# Explicitly declare files that should always have LF line endings
+*.md text eol=lf
+*.json text eol=lf
+*.ps1 text eol=lf
+*.yml text eol=lf

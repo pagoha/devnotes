@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Validate Notes",
+      "type": "shell",
+      "command": "./scripts/validate_notes.ps1",
+      "problemMatcher": []
+    },
+    {
+      "label": "New Note",
+      "type": "shell",
+      "command": "./scripts/new_note.ps1",
+      "args": ["example"],
+      "problemMatcher": []
+    }
+  ]
+}

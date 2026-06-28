@@ -27,7 +27,7 @@
   ],
 
   // === Markdownlint ===
-  "markdownlint.config": "${workspaceFolder}/.markdownlint.json",
+  "markdownlint.config": "${workspaceFolder}/markdownlint.json",
   "markdownlint.fixOnSave": true,
   // Explicitly lint root files and all files inside notes/
   "markdownlint.files": ["*.md", "notes/*.md"],
