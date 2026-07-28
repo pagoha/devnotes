@@ -41,3 +41,11 @@ out/
 # Optional: IDEs other than VS Code
 .idea/
 *.iml
+
+# Agent Customizations (untracked)
+.agents/
+.github/copilot-instructions.md
+CLAUDE.md
+
+
+
