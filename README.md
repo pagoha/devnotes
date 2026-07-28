@@ -26,7 +26,7 @@ It is designed as a lightweight, GitHub-friendly repository that demonstrates cl
 
 - Organized developer notes for Git, VS Code, Docker, Kubernetes, and AI tooling
 - Reusable code snippets
-- PowerShell helper scripts for consistent note creation
+- PowerShell helper scripts for note creation and Windows troubleshooting
 - Continuous Integration with GitHub Actions
 - Clean, scalable project structure
 - Beginner-friendly step-by-step guides
@@ -67,6 +67,15 @@ devnotes/
 │   ├── vscode-copilot-chat.md
 │   └── vscode.md
 ├── scripts/          # PowerShell helper scripts
+│   ├── new_note.ps1
+│   ├── validate_notes.ps1
+│   └── powershell/   # Windows admin and troubleshooting utilities
+│       ├── Get-DeviceErrors.ps1
+│       ├── Get-DiskHealth.ps1
+│       ├── Get-LargeFiles.ps1
+│       ├── Get-NetworkInfo.ps1
+│       ├── Get-SystemInfo.ps1
+│       └── README.md
 ├── snippets/         # Reusable code snippets
 ├── .gitignore
 ├── cspell.json
@@ -113,6 +122,18 @@ You can also run the npm validation commands directly:
 ```bash
 npm run lint:all
 ```
+
+### Windows PowerShell Utilities
+
+Additional troubleshooting utilities are available in [scripts/powershell/](scripts/powershell).
+
+- System information and hardware details
+- Network adapter and IP configuration checks
+- Physical disk health reporting
+- Large file discovery under a target path
+- Plug and Play device error reporting
+
+See [scripts/powershell/README.md](scripts/powershell/README.md) for usage details.
 
 ------------------------------------------------------------------------
 
